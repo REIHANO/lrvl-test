@@ -71,9 +71,9 @@ export default function Index({ products, categories }) {
                             href={`/products/${p.id}`}
                             className="relative block aspect-[4/3] overflow-hidden bg-amber-50"
                         >
-                            {p.image ? (
+                            {p.image_url ? (
                                 <img
-                                    src={`/storage/${p.image}`}
+                                    src={p.image_url}
                                     alt={p.name}
                                     className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                 />

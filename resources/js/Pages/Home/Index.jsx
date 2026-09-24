@@ -9,7 +9,7 @@ export default function Index({ products = [], categories = [], articles = [] })
     const [categoryId, setCategoryId] = useState("");
     const [search, setSearch] = useState("");
     const [loginPrompt, setLoginPrompt] = useState("");
-    const featureImage = products.find((product) => product.image)?.image;
+    const featureImage = products.find((product) => product.image_url)?.image_url;
     const visible = useMemo(
         () =>
             products.filter((product) => {
@@ -73,7 +73,7 @@ export default function Index({ products = [], categories = [], articles = [] })
                         className="relative isolate overflow-hidden rounded-2xl bg-[#0e1726] bg-cover bg-center p-5 text-white sm:p-7"
                         style={
                             featureImage
-                                ? { backgroundImage: `url(/storage/${featureImage})` }
+                                ? { backgroundImage: `url(${featureImage})` }
                                 : undefined
                         }
                     >
@@ -143,9 +143,9 @@ export default function Index({ products = [], categories = [], articles = [] })
                             >
                                 <div>
                                     <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-[#f3efea]">
-                                        {p.image ? (
+                                        {p.image_url ? (
                                             <img
-                                                src={`/storage/${p.image}`}
+                                                src={p.image_url}
                                                 alt={p.name}
                                                 className="h-full w-full object-cover"
                                             />

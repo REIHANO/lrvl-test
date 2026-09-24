@@ -75,6 +75,13 @@ export default function Form({ product, categories }) {
                         onChange={(e) => f.setData("image", e.target.files[0])}
                         error={f.errors.image}
                     />
+                    {edit && product.image_url && (
+                        <img
+                            src={product.image_url}
+                            alt={`Gambar ${product.name}`}
+                            className="mb-4 h-40 w-40 rounded-xl object-cover"
+                        />
+                    )}
                     <Link href="/products" className="mr-3 text-slate-600">
                         Kembali
                     </Link>

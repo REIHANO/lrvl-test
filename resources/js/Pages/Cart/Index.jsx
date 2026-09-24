@@ -37,9 +37,9 @@ export default function Index({ cart }) {
                                 key={i.product_id}
                             >
                                 <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-amber-50">
-                                    {i.image ? (
+                                    {i.image_url ? (
                                         <img
-                                            src={`/storage/${i.image}`}
+                                            src={i.image_url}
                                             alt={i.name}
                                             className="h-full w-full object-cover"
                                         />

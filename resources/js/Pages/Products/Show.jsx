@@ -9,9 +9,9 @@ export default function Show({ product }) {
         >
             <div className="grid gap-8 lg:grid-cols-2">
                 <Card className="flex min-h-[380px] items-center justify-center p-6">
-                    {product.image ? (
+                    {product.image_url ? (
                         <img
-                            src={`/storage/${product.image}`}
+                            src={product.image_url}
                             alt={product.name}
                             className="max-h-[420px] w-full rounded-2xl object-contain"
                         />
