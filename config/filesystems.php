@@ -67,9 +67,12 @@ return [
             'region' => env('SUPABASE_S3_REGION'),
             'bucket' => env('SUPABASE_S3_BUCKET'),
             'endpoint' => env('SUPABASE_S3_ENDPOINT'),
+
+            'url' => env('SUPABASE_PUBLIC_URL'),
+
             'use_path_style_endpoint' => true,
             'throw' => false,
-            'report' => false,
+            'report' => false
         ],
 
     ],
