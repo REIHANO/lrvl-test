@@ -12,7 +12,7 @@ class ProductService{
 public function store(array $data ){
     return DB::transaction(function () use ($data){
     if(isset($data['image'])){
-        $data['image'] = $data['image']->store('', config('filesystems.default'));
+        $data['image'] = $data['image']->store('', 'supabase');
     }
 
     $product = Product::create([
@@ -44,7 +44,7 @@ public function update(Product $product, array $data){
     $hasNewImage = isset($data['image']);
 
     if(isset($data['image'])){
-        $data['image'] = $data['image']->store('', config('filesystems.default'));
+        $data['image'] = $data['image']->store('', 'supabase');
 
     }
 
@@ -58,7 +58,7 @@ public function update(Product $product, array $data){
     ]);
 
     if ($updated && $hasNewImage && $oldImage) {
-        Storage::disk(config('filesystems.default'))->delete($oldImage);
+        Storage::disk('supabase')->delete($oldImage);
     }
 
     return $updated;
@@ -67,7 +67,7 @@ public function update(Product $product, array $data){
 
 public function delete(Product $product){
     if ($product->image) {
-        Storage::disk(config('filesystems.default'))->delete($product->image);
+        Storage::disk('supabase')->delete($product->image);
     }
     return $product->delete();
 

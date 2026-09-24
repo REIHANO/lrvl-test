@@ -16,7 +16,7 @@ class Product extends Model
     {
         return Attribute::make(
             get: fn () => $this->image
-                ? Storage::disk(config('filesystems.default'))->url($this->image)
+                ? Storage::disk('supabase')->url($this->image)
                 : null
         );
     }
