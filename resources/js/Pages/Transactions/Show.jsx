@@ -2,7 +2,7 @@ import { Link, useForm } from "@inertiajs/react";
 import Layout, { Card, Button } from "../Layout";
 
 export default function Show({ transaction }) {
-    const payment = useForm();
+    const payment = useForm({ payment_method: transaction.payment_method || "" });
     const paid = transaction.status === "paid";
 
     return (
@@ -24,6 +24,7 @@ export default function Show({ transaction }) {
                     <div className="grid gap-2 border-b border-slate-100 py-5 text-sm sm:grid-cols-2">
                         <p><span className="text-slate-500">Customer:</span> {transaction.customer_name || transaction.customer?.name}</p>
                         <p><span className="text-slate-500">Email:</span> {transaction.customer?.email || "-"}</p>
+                        <p><span className="text-slate-500">Metode pembayaran:</span> {transaction.payment_method ? paymentMethods[transaction.payment_method] : "Belum dipilih"}</p>
                         <p className="sm:col-span-2"><span className="text-slate-500">Alamat pengiriman:</span> {transaction.customer_address || "-"}</p>
                     </div>
                     <div className="divide-y divide-slate-100">
@@ -42,13 +43,33 @@ export default function Show({ transaction }) {
                     <p className="text-sm text-slate-500">Total pembayaran</p>
                     <p className="mt-2 text-2xl font-extrabold">Rp {Number(transaction.total_price).toLocaleString("id-ID")}</p>
                     {!paid ? (
-                        <Button
-                            className="mt-5 w-full bg-emerald-600 hover:bg-emerald-700"
-                            disabled={payment.processing}
-                            onClick={() => payment.patch(`/transactions/${transaction.id}/pay`)}
-                        >
-                            {payment.processing ? "Memproses…" : "Bayar sekarang"}
-                        </Button>
+                        <form onSubmit={(event) => {
+                            event.preventDefault();
+                            payment.patch(`/transactions/${transaction.id}/pay`);
+                        }}>
+                            <label className="mt-5 block text-sm font-semibold text-slate-700">
+                                Pilih metode pembayaran
+                                <select
+                                    className="mt-2 w-full rounded-xl border border-slate-300 px-3 py-2.5 font-normal"
+                                    value={payment.data.payment_method}
+                                    onChange={(event) => payment.setData("payment_method", event.target.value)}
+                                    required
+                                >
+                                    <option value="">Pilih metode</option>
+                                    {Object.entries(paymentMethods).map(([value, label]) => (
+                                        <option value={value} key={value}>{label}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            {payment.errors.payment_method && <p className="mt-2 text-xs text-red-600">{payment.errors.payment_method}</p>}
+                            <p className="mt-3 rounded-lg bg-slate-50 p-3 text-xs text-slate-500">Ini adalah simulasi pembayaran. Setelah memilih metode, klik tombol konfirmasi.</p>
+                            <Button
+                                className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700"
+                                disabled={payment.processing}
+                            >
+                                {payment.processing ? "Memproses…" : "Konfirmasi pembayaran"}
+                            </Button>
+                        </form>
                     ) : (
                         <p className="mt-5 rounded-xl bg-emerald-50 p-3 text-center text-sm font-semibold text-emerald-700">Transaksi berhasil dibayar.</p>
                     )}
@@ -58,3 +79,11 @@ export default function Show({ transaction }) {
         </Layout>
     );
 }
+
+const paymentMethods = {
+    dana: "DANA",
+    gopay: "GoPay",
+    ovo: "OVO",
+    va_bca: "Virtual Account BCA",
+    va_mandiri: "Virtual Account Mandiri",
+};

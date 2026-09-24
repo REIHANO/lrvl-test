@@ -34,6 +34,7 @@ export default function Index({ transactions }) {
                                 <th className="p-4">Invoice</th>
                                 <th>Customer</th>
                                 <th>Total</th>
+                                <th>Metode pembayaran</th>
                                 <th>Status pembayaran</th>
                                 <th>Aksi</th>
                             </tr>
@@ -62,6 +63,9 @@ export default function Index({ transactions }) {
                                         {Number(t.total_price).toLocaleString(
                                             "id-ID",
                                         )}
+                                    </td>
+                                    <td className="text-sm text-slate-600">
+                                        {paymentMethods[t.payment_method] || "-"}
                                     </td>
                                     <td>
                                         <span
@@ -108,7 +112,7 @@ export default function Index({ transactions }) {
                             {!transactions.data.length && (
                                 <tr>
                                     <td
-                                        colSpan="5"
+                                        colSpan="6"
                                         className="p-10 text-center text-slate-500"
                                     >
                                         Belum ada pesanan.
@@ -122,3 +126,11 @@ export default function Index({ transactions }) {
         </Layout>
     );
 }
+
+const paymentMethods = {
+    dana: "DANA",
+    gopay: "GoPay",
+    ovo: "OVO",
+    va_bca: "Virtual Account BCA",
+    va_mandiri: "Virtual Account Mandiri",
+};

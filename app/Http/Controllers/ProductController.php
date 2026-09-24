@@ -46,7 +46,7 @@ class ProductController extends Controller
         }
 
 
-        $products = $query->paginate(5)->appends($request->all()); //untuk mengeksekusi query yang sudah dibangun dan mengambil hasilnya dalam bentuk paginasi dengan 5 item per halaman. Metode 'appends($request->all())' digunakan untuk memastikan bahwa parameter pencarian dan filter tetap ada saat pengguna berpindah halaman dalam hasil paginasi, sehingga pengalaman pengguna tetap konsisten.
+        $products = $query->paginate(10)->appends($request->all()); //untuk mengeksekusi query yang sudah dibangun dan mengambil hasilnya dalam bentuk paginasi dengan 10 item per halaman. Metode 'appends($request->all())' digunakan untuk memastikan bahwa parameter pencarian dan filter tetap ada saat pengguna berpindah halaman dalam hasil paginasi, sehingga pengalaman pengguna tetap konsisten.
 
         return Inertia::render('Products/Index', compact('products', 'categories'));
     }

@@ -71,7 +71,10 @@ class TransactionController extends Controller
         abort_unless(auth()->user()->role === 'customer' && $transaction->user_id === auth()->id(), 403);
         abort_if($transaction->status === 'paid', 422, 'Pesanan ini sudah dibayar.');
 
-        $transaction->update(['status' => 'paid']);
+        $transaction->update([
+            'status' => 'paid',
+            'payment_method' => $request->validated('payment_method'),
+        ]);
         return redirect()->route('transactions.show', $transaction)
             ->with('success', "Pembayaran {$transaction->invoice_number} berhasil dikonfirmasi.");
     }

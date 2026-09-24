@@ -1,5 +1,14 @@
 import { Link } from "@inertiajs/react";
 import Layout, { Card } from "../Layout";
+
+const quickNavigation = [
+    ["/products", "Kelola produk", "Tambah dan perbarui katalog"],
+    ["/categories", "Kategori", "Atur kategori produk"],
+    ["/transactions", "Pesanan", "Pantau status pesanan"],
+    ["/reports/sales", "Laporan penjualan", "Lihat analisis penjualan"],
+    ["/stock-histories", "Persediaan", "Kelola stok produk"],
+];
+
 export default function Index({
     summary,
     salesChart = [],
@@ -31,6 +40,31 @@ export default function Index({
                     </Card>
                 ))}
             </div>
+            <Card className="mt-6">
+                <div className="mb-4">
+                    <h3 className="font-bold">Navigasi cepat</h3>
+                    <p className="mt-1 text-xs text-slate-500">
+                        Akses fitur admin yang paling sering digunakan.
+                    </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                    {quickNavigation.map(([href, label, description]) => (
+                        <Link
+                            href={href}
+                            key={href}
+                            className="group rounded-xl border border-slate-200 bg-white p-3 transition hover:-translate-y-0.5 hover:border-amber-300 hover:bg-amber-50"
+                        >
+                            <span className="flex items-center justify-between text-sm font-bold text-slate-700 group-hover:text-amber-800">
+                                {label}
+                                <span aria-hidden="true">→</span>
+                            </span>
+                            <span className="mt-1 block text-xs text-slate-500">
+                                {description}
+                            </span>
+                        </Link>
+                    ))}
+                </div>
+            </Card>
             <Card className="mt-6">
                 <div className="mb-5 flex items-center justify-between">
                     <div>

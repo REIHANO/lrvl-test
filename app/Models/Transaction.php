@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $primaryKey = 'id';
-    protected $fillable = ['user_id', 'invoice_number', 'customer_name', 'customer_address', 'total_price', 'status'];
+    protected $fillable = ['user_id', 'invoice_number', 'customer_name', 'customer_address', 'total_price', 'status', 'payment_method'];
 
     protected $casts = ['total_price' => 'decimal:2'];
 

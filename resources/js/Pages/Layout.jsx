@@ -62,19 +62,6 @@ export default function Layout({ children, title, description }) {
                         ))}
                     </ul>
                 </nav>
-                {customer && (
-                    <Link
-                        href="/cart"
-                        onClick={() => setMobileOpen(false)}
-                        className="mt-3 flex items-center justify-between rounded-xl bg-amber-50 px-3 py-3 text-sm font-semibold text-amber-800"
-                        aria-label={`Keranjang, ${cartCount} item`}
-                    >
-                        <span>Keranjang</span>
-                        <span className="rounded-full bg-amber-400 px-2 py-0.5 text-xs text-slate-900">
-                            {cartCount}
-                        </span>
-                    </Link>
-                )}
                 <footer className="absolute bottom-6 left-6 right-6 rounded-2xl bg-slate-900 p-4 text-white">
                     <p className="text-xs text-slate-400">Akun aktif</p>
                     <p className="mt-1 truncate text-sm font-semibold">
@@ -103,29 +90,44 @@ export default function Layout({ children, title, description }) {
             )}
             <main className="min-h-screen lg:ml-72">
                 <header className="border-b border-slate-200 bg-white/80 px-5 py-5 lg:px-10">
-                    <div className="mx-auto flex max-w-7xl items-start gap-3">
-                        <button
-                            type="button"
-                            onClick={() => setMobileOpen(true)}
-                            className="-ml-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-lg leading-none text-slate-700 shadow-sm lg:hidden"
-                            aria-label="Buka menu navigasi"
-                            aria-expanded={mobileOpen}
-                        >
-                            ☰
-                        </button>
-                        <div>
-                        <p className="text-xs font-semibold uppercase tracking-[.2em] text-amber-600">
-                            Nusantara Handmade
-                        </p>
-                        <h2 className="mt-1 text-2xl font-extrabold">
-                            {title}
-                        </h2>
-                        {description && (
-                            <p className="mt-1 text-sm text-slate-500">
-                                {description}
-                            </p>
-                        )}
+                    <div className="mx-auto flex max-w-7xl items-start justify-between gap-3">
+                        <div className="flex items-start gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setMobileOpen(true)}
+                                className="-ml-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-lg leading-none text-slate-700 shadow-sm lg:hidden"
+                                aria-label="Buka menu navigasi"
+                                aria-expanded={mobileOpen}
+                            >
+                                ☰
+                            </button>
+                            <div>
+                                <p className="text-xs font-semibold uppercase tracking-[.2em] text-amber-600">
+                                    Nusantara Handmade
+                                </p>
+                                <h2 className="mt-1 text-2xl font-extrabold">
+                                    {title}
+                                </h2>
+                                {description && (
+                                    <p className="mt-1 text-sm text-slate-500">
+                                        {description}
+                                    </p>
+                                )}
+                            </div>
                         </div>
+                        {customer && (
+                            <Link
+                                href="/cart"
+                                onClick={() => setMobileOpen(false)}
+                                className="flex shrink-0 items-center gap-2 rounded-xl bg-amber-50 px-3 py-2.5 text-sm font-semibold text-amber-800 hover:bg-amber-100"
+                                aria-label={`Keranjang, ${cartCount} item`}
+                            >
+                                <span>Keranjang</span>
+                                <span className="rounded-full bg-amber-400 px-2 py-0.5 text-xs text-slate-900">
+                                    {cartCount}
+                                </span>
+                            </Link>
+                        )}
                     </div>
                 </header>
                 <div

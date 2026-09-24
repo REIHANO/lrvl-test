@@ -141,6 +141,37 @@ export default function Index({ products, categories }) {
                     Produk tidak ditemukan.
                 </Card>
             )}
+            {products.last_page > 1 && (
+                <nav
+                    className="mt-6 flex flex-wrap items-center justify-center gap-2"
+                    aria-label="Navigasi halaman produk"
+                >
+                    {products.links.map((link, index) => (
+                        <Link
+                            key={`${link.label}-${index}`}
+                            href={link.url || undefined}
+                            preserveScroll
+                            preserveState
+                            aria-current={link.active ? "page" : undefined}
+                            aria-disabled={!link.url}
+                            onClick={(e) => {
+                                if (!link.url) e.preventDefault();
+                            }}
+                            className={`rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                                link.active
+                                    ? "bg-amber-600 text-white"
+                                    : link.url
+                                      ? "border border-slate-200 bg-white text-slate-600 hover:border-amber-300 hover:text-amber-700"
+                                      : "cursor-not-allowed border border-slate-100 bg-slate-50 text-slate-300"
+                            }`}
+                        >
+                            <span
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        </Link>
+                    ))}
+                </nav>
+            )}
         </Layout>
     );
 }
