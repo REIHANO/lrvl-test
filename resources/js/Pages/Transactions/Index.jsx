@@ -133,7 +133,6 @@ export default function Index({ transactions }) {
                             key={`${link.label}-${index}`}
                             href={link.url || undefined}
                             preserveScroll
-                            preserveState
                             aria-current={link.active ? "page" : undefined}
                             aria-disabled={!link.url}
                             onClick={(event) => {
