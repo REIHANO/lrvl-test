@@ -50,10 +50,10 @@ class StockHistoryController extends Controller
         $validated['type'] = 'in';
 
         try {
-            $this->stockService->recordMutation($validated);
+            $this->stockService->recordMutation($validated);//memanggil method recordMutation dari StockHistoryService untuk mencatat mutasi stok
             return redirect()->back()->with('success', 'stock add successfully!');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'gagal memproses stock' . $e->getMessage());
+            return redirect()->back()->with('error', 'gagal memproses stock' . $e->getMessage());//menangkap exception jika terjadi kesalahan saat mencatat mutasi stok
         }
     }
 }

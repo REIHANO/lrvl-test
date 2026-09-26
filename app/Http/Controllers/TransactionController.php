@@ -35,7 +35,7 @@ class TransactionController extends Controller
    if (auth()->user()->role === 'customer') {
        $query->where('user_id', auth()->id());
    }
-   $transactions = $query->paginate(10);
+   $transactions = $query->paginate(10);//untuk mengeksekusi query yang sudah dibangun dan mengambil hasilnya dalam bentuk paginasi dengan 10 item per halaman. Metode 'appends($request->all())' digunakan untuk memastikan bahwa parameter pencarian dan filter tetap ada saat pengguna berpindah halaman dalam hasil paginasi, sehingga pengalaman pengguna tetap konsisten.
 
    return Inertia::render('Transactions/Index', compact('transactions'));
 
@@ -53,7 +53,7 @@ class TransactionController extends Controller
 
     public function create(){
         $this->authorize('create', Transaction::class);
-        $products = Product::all();
+        $products = Product::all();//berfungsi untuk menampilkan semua produk yang tersedia di halaman create transaksi
 
         return Inertia::render('Transactions/Create', compact('products'));
     }
